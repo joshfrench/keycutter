@@ -1,3 +1,4 @@
+require 'keycutter/version'
 require 'keycutter/keys_command'
 
 module Keycutter
