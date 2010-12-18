@@ -1,6 +1,5 @@
 $:.unshift(File.dirname(__FILE__) + '/../../lib')
 
-require 'fileutils'
 require 'aruba/cucumber'
 require 'cross-stub'
 require 'keycutter'
