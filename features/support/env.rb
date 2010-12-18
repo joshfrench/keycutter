@@ -1,23 +1,16 @@
 $:.unshift(File.dirname(__FILE__) + '/../../lib')
 
 require 'aruba/cucumber'
-require 'cross-stub'
 require 'keycutter'
 
-xstub_cache = File.dirname(__FILE__) + '/../../xstub.cache'
-test_credentials = File.dirname(__FILE__) + '/../../test_credentials'
-
-AfterConfiguration do
-  CrossStub.setup :file => xstub_cache
-  Gem::ConfigFile.xstub(:credentials_path => test_credentials, :instance => true)
-end
-
 Before do
-  CrossStub.refresh :file => xstub_cache
+  @original_api_key  = Gem.configuration.rubygems_api_key
+  @original_accounts = Gem.configuration.rubygems_accounts
 end
 
 After do
-  CrossStub.clear
+  Gem.configuration.rubygems_api_key  = @original_api_key
+  Gem.configuration.rubygems_accounts = @original_accounts
 end
 
 at_exit do
