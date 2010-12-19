@@ -40,23 +40,25 @@ class Gem::Commands::KeysCommand < Gem::Command
     options[:list] = !(options[:use] || options[:remove] || options[:add])
 
     if options[:add] then
-    say "Enter your RubyGems.org credentials."
-    say "Don't have an account yet? Create one at http://rubygems.org/sign_up"
+      say "Enter your RubyGems.org credentials."
+      say "Don't have an account yet? Create one at http://rubygems.org/sign_up"
 
-    email    =              ask "   Email: "
-    password = ask_for_password "Password: "
-    say "\n"
+      email    =              ask "   Email: "
+      password = ask_for_password "Password: "
+      say "\n"
 
-    response = rubygems_api_request :get, "api/v1/api_key" do |request|
-      request.basic_auth email, password
+      response = rubygems_api_request :get, "api/v1/api_key" do |request|
+        request.basic_auth email, password
+      end
+
+     say response.body.inspect
+
+      with_response response do |resp|
+        accounts = Gem.configuration.rubygems_accounts.merge(options[:add] => resp.body)
+        Gem.configuration.rubygems_accounts = accounts
+        say "Added #{options[:add]} rubygems API key"
+      end
     end
-
-    with_response response do |resp|
-      accounts = Gem.configuration.rubygems_accounts.merge(options[:add] => resp.body)
-      Gem.configuration.rubygems_accounts = accounts
-      say "Added #{options[:add]} rubygems API key"
-    end
-  end
 
     if options[:remove] then
       accounts = Gem.configuration.rubygems_accounts
