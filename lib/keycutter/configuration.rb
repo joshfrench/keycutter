@@ -5,8 +5,8 @@ class Gem::ConfigFile
     @rubygems_accounts || load_rubygems_accounts
   end
 
-  def rubygems_accounts=(hash)
-    config = load_file(credentials_path).merge(:rubygems_accounts => hash)
+  def rubygems_accounts=(accounts)
+    config = load_file(credentials_path).merge(:rubygems_accounts => accounts)
 
     dirname = File.dirname(credentials_path)
     Dir.mkdir(dirname) unless File.exists?(dirname)
@@ -17,7 +17,7 @@ class Gem::ConfigFile
       f.write config.to_yaml
     end
 
-    @rubygems_accounts = hash
+    @rubygems_accounts = accounts
   end
 
   def load_rubygems_accounts

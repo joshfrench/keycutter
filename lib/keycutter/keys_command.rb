@@ -45,13 +45,11 @@ class Gem::Commands::KeysCommand < Gem::Command
 
       email    =              ask "   Email: "
       password = ask_for_password "Password: "
-      say "\n"
+      say
 
       response = rubygems_api_request :get, "api/v1/api_key" do |request|
         request.basic_auth email, password
       end
-
-     say response.body.inspect
 
       with_response response do |resp|
         accounts = Gem.configuration.rubygems_accounts.merge(options[:add] => resp.body)

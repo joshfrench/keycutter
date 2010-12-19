@@ -26,13 +26,13 @@ Feature: Default commands
        work
     """
 
-  Scenario Outline: list
+  Scenario Outline: Using the list option
     Given I have the following rubygems keys:
       |name    |key                             |
       |personal|11111111111111111111111111111111|
       |work    |22222222222222222222222222222222|
     And my current rubygems key is "work"
-    When I run "<command>"
+    When I run "gem keys <option>"
     Then the output should contain:
     """
     *** CURRENT KEYS ***
@@ -42,6 +42,6 @@ Feature: Default commands
     """
 
     Examples:
-      |command         |
-      |gem keys -l     |
-      |gem keys --list |
+      |option |
+      |-l     |
+      |--list |

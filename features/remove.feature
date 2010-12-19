@@ -17,7 +17,7 @@ Feature: Remove API keys
     Examples:
       |command |key     |
       |-r      |personal|
-      |--remove|personal|
+      |--remove|work    |
 
   Scenario: Removing a bogus key
     When I run "gem keys -r bogus"
