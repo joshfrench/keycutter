@@ -1,8 +1,3 @@
-Given /^I have installed keycutter$/ do
-  `rake build`
-  `gem install pkg/keycutter-#{Keycutter::VERSION}.gem`
-end
-
 Given /^I have the following rubygems keys:$/ do |table|
   accounts = table.hashes.inject({}) do |hash,row|
     hash[row[:name]] = row[:key]

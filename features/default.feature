@@ -3,9 +3,6 @@ Feature: Default commands
   I want to find out what my options are
   So I can put keycutter to best use
 
-  Background:
-    Given I have installed keycutter
-
   Scenario: Installing the gem
     When I run "gem q"
     Then the output should contain "keycutter"
