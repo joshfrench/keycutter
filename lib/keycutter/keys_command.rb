@@ -9,6 +9,18 @@ class Gem::Commands::KeysCommand < Gem::Command
     end
   end
 
+  def arguments
+    "KEYNAME          name of a Rubygems API key"
+  end
+
+  def defaults_str
+    "--list"
+  end
+
+  def usage
+    "#{program_name} [options] [KEYNAME]"
+  end
+
   def execute
     options[:list] = true
 
