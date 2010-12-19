@@ -9,3 +9,9 @@ end
 Given /^my current rubygems key is "([^"]*)"$/ do |key|
   Gem.configuration.rubygems_api_key = Gem.configuration.rubygems_accounts[key]
 end
+
+Then /^my current rubygems key should be "([^"]*)"$/ do |key|
+  Gem.configuration.load_rubygems_api_key
+  Gem.configuration.rubygems_api_key.should == Gem.configuration.rubygems_accounts[key]
+end
+

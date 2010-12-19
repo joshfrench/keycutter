@@ -7,6 +7,10 @@ class Gem::Commands::KeysCommand < Gem::Command
     add_option '-l', '--list', 'List keys' do |value,options|
       options[:list] = value
     end
+
+    add_option '-u', '--use KEYNAME', 'Use the given API key' do |value,options|
+      options[:use] = value
+    end
   end
 
   def arguments
@@ -22,7 +26,12 @@ class Gem::Commands::KeysCommand < Gem::Command
   end
 
   def execute
-    options[:list] = true
+    options[:list] = !options[:use]
+
+    if options[:use] then
+      Gem.configuration.rubygems_api_key = Gem.configuration.rubygems_accounts[options[:use]]
+      say "Now using #{options[:use]} rubygems API key"
+    end
 
     if options[:list] then
       say "*** CURRENT KEYS ***"
