@@ -34,9 +34,14 @@ class Gem::Commands::KeysCommand < Gem::Command
 
     if options[:remove] then
       accounts = Gem.configuration.rubygems_accounts
-      accounts.delete(options[:remove])
-      Gem.configuration.rubygems_accounts = accounts
-      say "Removed #{options[:remove]} rubygems API key"
+      if accounts.has_key? options[:remove]
+        accounts.delete(options[:remove])
+        Gem.configuration.rubygems_accounts = accounts
+        say "Removed #{options[:remove]} rubygems API key"
+      else
+        say "No such rubygems API key"
+        terminate_interaction 1
+      end
     end
 
     if options[:use] then

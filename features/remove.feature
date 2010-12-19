@@ -18,3 +18,8 @@ Feature: Remove API keys
       |command |key     |
       |-r      |personal|
       |--remove|personal|
+
+  Scenario: Removing a bogus key
+    When I run "gem keys -r bogus"
+    Then the output should contain "No such rubygems API key"
+    And the exit status should be 1
