@@ -2,7 +2,7 @@ require 'rubygems/config_file'
 
 class Gem::ConfigFile
   def rubygems_accounts
-    @rubygems_accounts ||= load_rubygems_accounts
+    @rubygems_accounts || load_rubygems_accounts
   end
 
   def rubygems_accounts=(hash)
@@ -22,7 +22,6 @@ class Gem::ConfigFile
 
   def load_rubygems_accounts
     credentials_hash = File.exists?(credentials_path) ? load_file(credentials_path) : @hash
-    credentials_hash[:rubygems_accounts] || {}
+    @rubygems_accounts = credentials_hash[:rubygems_accounts] || {}
   end
-  private :load_rubygems_accounts
 end

@@ -11,6 +11,10 @@ class Gem::Commands::KeysCommand < Gem::Command
     add_option '-u', '--use KEYNAME', 'Use the given API key' do |value,options|
       options[:use] = value
     end
+
+    add_option '-r', '--remove KEYNAME', 'Remove the given API key' do |value,options|
+      options[:remove] = value
+    end
   end
 
   def arguments
@@ -26,7 +30,14 @@ class Gem::Commands::KeysCommand < Gem::Command
   end
 
   def execute
-    options[:list] = !options[:use]
+    options[:list] = !(options[:use] || options[:remove])
+
+    if options[:remove] then
+      accounts = Gem.configuration.rubygems_accounts
+      accounts.delete(options[:remove])
+      Gem.configuration.rubygems_accounts = accounts
+      say "Removed #{options[:remove]} rubygems API key"
+    end
 
     if options[:use] then
       if Gem.configuration.rubygems_accounts.has_key? options[:use]
