@@ -3,12 +3,14 @@ Feature: Using gem keys
   I want to switch between rubygems API keys
   In order to push all of my sweet gems
 
-  Scenario Outline: Using a different key
+  Background:
     Given I have the following rubygems keys:
       |name    |key                             |
       |personal|11111111111111111111111111111111|
       |work    |22222222222222222222222222222222|
-    And my current rubygems key is "work"
+
+  Scenario Outline: Using a different key
+    Given my current rubygems key is "work"
     When I run "gem keys <command> <key>"
     Then the output should contain "Now using <key> rubygems API key"
     And my current rubygems key should be "<key>"
@@ -18,3 +20,10 @@ Feature: Using gem keys
       |-u     |personal|
       |--use  |personal|
       |-u     |work    |
+
+  Scenario: Using a bogus key
+    Given my current rubygems key is "personal"
+    When I run "gem keys -u bogus"
+    Then the output should contain "No such rubygems API key. You can add it with: gem keys -a bogus"
+    And the exit status should be 1
+    And my current rubygems key should be "personal"
