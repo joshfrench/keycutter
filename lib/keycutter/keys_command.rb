@@ -1,6 +1,9 @@
 require 'rubygems/command'
+require 'rubygems/gemcutter_utilities'
 
 class Gem::Commands::KeysCommand < Gem::Command
+  include Gem::GemcutterUtilities
+
   def initialize
     super 'keys', "Adds management for multiple gemcutter accounts"
 
@@ -14,6 +17,10 @@ class Gem::Commands::KeysCommand < Gem::Command
 
     add_option '-r', '--remove KEYNAME', 'Remove the given API key' do |value,options|
       options[:remove] = value
+    end
+
+    add_option '-a', '--add KEYNAME', 'Add an API key with the given name' do |value,options|
+      options[:add] = value
     end
   end
 
@@ -30,7 +37,26 @@ class Gem::Commands::KeysCommand < Gem::Command
   end
 
   def execute
-    options[:list] = !(options[:use] || options[:remove])
+    options[:list] = !(options[:use] || options[:remove] || options[:add])
+
+    if options[:add] then
+    say "Enter your RubyGems.org credentials."
+    say "Don't have an account yet? Create one at http://rubygems.org/sign_up"
+
+    email    =              ask "   Email: "
+    password = ask_for_password "Password: "
+    say "\n"
+
+    response = rubygems_api_request :get, "api/v1/api_key" do |request|
+      request.basic_auth email, password
+    end
+
+    with_response response do |resp|
+      accounts = Gem.configuration.rubygems_accounts.merge(options[:add] => resp.body)
+      Gem.configuration.rubygems_accounts = accounts
+      say "Added #{options[:add]} rubygems API key"
+    end
+  end
 
     if options[:remove] then
       accounts = Gem.configuration.rubygems_accounts
