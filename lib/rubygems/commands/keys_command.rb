@@ -1,4 +1,3 @@
-require 'rubygems/command'
 require 'rubygems/gemcutter_utilities'
 
 class Gem::Commands::KeysCommand < Gem::Command
@@ -37,6 +36,8 @@ class Gem::Commands::KeysCommand < Gem::Command
   end
 
   def execute
+    require 'keycutter'
+
     options[:list] = !(options[:use] || options[:remove] || options[:add])
 
     if options[:add] then
