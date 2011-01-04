@@ -25,6 +25,11 @@ for your company or an open-source organization, add those too:
     $ gem keys --add company
     $ gem keys --add project
 
+If you're using RubyGems 1.4.1 or higher, you can pass the `--host` option to
+use a gemcutter-compatible host when adding a key:
+
+    $ gem keys --add internal --host http://gems.mycompany.com
+
 You can view your current keys:
 
     $ gem keys --list
@@ -35,11 +40,11 @@ You can view your current keys:
      * personal
        project
 
-Your currently active key is marked.
+Your default key is marked.
 
-To switch to a different account before pushing a gem:
+To switch the default key used when managing remote gems:
 
-    $ gem keys --use company
+    $ gem keys --default company
 
 You can also remove a key:
 
@@ -49,10 +54,3 @@ Help is available from the command line:
 
     $ gem keys --help
 
-TODO
-----
-
- * Add auto-detection of existing API key and create a default key name
- * Rubygems 1.3.7 doesn't support gemcutter-compatible hosts, although this has
-   been added to edge. Update `keys --add` to take a `--host` option when the next
-   version of rubygems is released.
