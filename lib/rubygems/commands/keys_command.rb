@@ -14,8 +14,8 @@ class Gem::Commands::KeysCommand < Gem::Command
       options[:list] = value
     end
 
-    add_option '-u', '--use KEYNAME', Symbol, 'Use the given API key' do |value,options|
-      options[:use] = value
+    add_option '-d', '--default KEYNAME', Symbol, 'Set the default API key' do |value,options|
+      options[:default] = value
     end
 
     add_option '-r', '--remove KEYNAME', Symbol, 'Remove the given API key' do |value,options|
@@ -42,7 +42,7 @@ class Gem::Commands::KeysCommand < Gem::Command
   def execute
     require 'keycutter'
 
-    options[:list] = !(options[:use] || options[:remove] || options[:add])
+    options[:list] = !(options[:default] || options[:remove] || options[:add])
 
     if options[:add] then
       say "Enter your RubyGems.org credentials."
@@ -74,12 +74,12 @@ class Gem::Commands::KeysCommand < Gem::Command
       end
     end
 
-    if options[:use] then
-      if Gem.configuration.api_keys.has_key? options[:use]
-        Gem.configuration.rubygems_api_key = Gem.configuration.api_keys[options[:use]]
-        say "Now using #{options[:use]} API key"
+    if options[:default] then
+      if Gem.configuration.api_keys.has_key? options[:default]
+        Gem.configuration.rubygems_api_key = Gem.configuration.api_keys[options[:default]]
+        say "Now using #{options[:default]} API key"
       else
-        say "No such API key. You can add it with: gem keys -a #{options[:use]}"
+        say "No such API key. You can add it with: gem keys -a #{options[:default]}"
         terminate_interaction 1
       end
     end

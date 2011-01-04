@@ -1,47 +1,29 @@
-Feature: Default commands
-  As a new user
-  I want to find out what my options are
-  So I can put keycutter to best use
+Feature: Using gem keys
+  As an open source developer
+  I want to switch between rubygems API keys
+  In order to push all of my sweet gems
 
-  Scenario: Installing the gem
-    When I run "gem q"
-    Then the output should contain "keycutter"
-
-  Scenario: Calling the plugin with no options
+  Background:
     Given I have the following api keys:
       |name    |key                             |
-      |rubygems|11111111111111111111111111111111|
+      |personal|11111111111111111111111111111111|
       |work    |22222222222222222222222222222222|
-      |oss_1   |33333333333333333333333333333333|
-      |oss_2   |44444444444444444444444444444444|
-    And my current rubygems key is "rubygems"
-    When I run "gem keys"
-    Then the output should contain:
-    """
-    *** CURRENT KEYS ***
 
-       oss_1
-       oss_2
-     * rubygems
-       work
-    """
-
-  Scenario Outline: Using the list option
-    Given I have the following api keys:
-      |name    |key                             |
-      |rubygems|11111111111111111111111111111111|
-      |work    |22222222222222222222222222222222|
-    And my current rubygems key is "work"
-    When I run "gem keys <option>"
-    Then the output should contain:
-    """
-    *** CURRENT KEYS ***
-
-       rubygems
-     * work
-    """
+  Scenario Outline: Using a different key
+    Given my current rubygems key is "work"
+    When I run "gem keys <command> <key>"
+    Then the output should contain "Now using <key> API key"
+    And my current rubygems key should be "<key>"
 
     Examples:
-      |option |
-      |-l     |
-      |--list |
+      |command|key     |
+      |-d     |personal|
+      |--default  |personal|
+      |-d     |work    |
+
+  Scenario: Using a bogus key
+    Given my current rubygems key is "personal"
+    When I run "gem keys -d bogus"
+    Then the output should contain "No such API key. You can add it with: gem keys -a bogus"
+    And the exit status should be 1
+    And my current rubygems key should be "personal"
