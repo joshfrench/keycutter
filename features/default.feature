@@ -10,11 +10,11 @@ Feature: Default commands
   Scenario: Calling the plugin with no options
     Given I have the following api keys:
       |name    |key                             |
-      |personal|11111111111111111111111111111111|
+      |rubygems|11111111111111111111111111111111|
       |work    |22222222222222222222222222222222|
       |oss_1   |33333333333333333333333333333333|
       |oss_2   |44444444444444444444444444444444|
-    And my current rubygems key is "personal"
+    And my current rubygems key is "rubygems"
     When I run "gem keys"
     Then the output should contain:
     """
@@ -22,14 +22,14 @@ Feature: Default commands
 
        oss_1
        oss_2
-     * personal
+     * rubygems
        work
     """
 
   Scenario Outline: Using the list option
     Given I have the following api keys:
       |name    |key                             |
-      |personal|11111111111111111111111111111111|
+      |rubygems|11111111111111111111111111111111|
       |work    |22222222222222222222222222222222|
     And my current rubygems key is "work"
     When I run "gem keys <option>"
@@ -37,7 +37,7 @@ Feature: Default commands
     """
     *** CURRENT KEYS ***
 
-       personal
+       rubygems
      * work
     """
 

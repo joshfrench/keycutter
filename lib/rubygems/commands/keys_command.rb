@@ -3,6 +3,10 @@ require 'rubygems/gemcutter_utilities'
 class Gem::Commands::KeysCommand < Gem::Command
   include Gem::GemcutterUtilities
 
+  OptionParser.accept Symbol do |value|
+    value.to_sym
+  end
+
   def initialize
     super 'keys', "Adds management for multiple gemcutter accounts"
 
@@ -10,15 +14,15 @@ class Gem::Commands::KeysCommand < Gem::Command
       options[:list] = value
     end
 
-    add_option '-u', '--use KEYNAME', 'Use the given API key' do |value,options|
+    add_option '-u', '--use KEYNAME', Symbol, 'Use the given API key' do |value,options|
       options[:use] = value
     end
 
-    add_option '-r', '--remove KEYNAME', 'Remove the given API key' do |value,options|
+    add_option '-r', '--remove KEYNAME', Symbol, 'Remove the given API key' do |value,options|
       options[:remove] = value
     end
 
-    add_option '-a', '--add KEYNAME', 'Add an API key with the given name' do |value,options|
+    add_option '-a', '--add KEYNAME', Symbol, 'Add an API key with the given name' do |value,options|
       options[:add] = value
     end
   end
@@ -84,10 +88,10 @@ class Gem::Commands::KeysCommand < Gem::Command
     if options[:list] then
       say "*** CURRENT KEYS ***"
       say
-      accounts = Gem.configuration.api_keys.sort
-      accounts.each do |account|
-        name, key = account
-        say "%2s %s" % [Gem.configuration.rubygems_api_key[key] && '*', name]
+      api_keys = Gem.configuration.api_keys.sort_by {|k,v| k.to_s}
+      api_keys.each do |api_key|
+        name, key = api_key
+        say " #{Gem.configuration.rubygems_api_key == key ? '*' : ' '} #{name}"
       end
     end
   end

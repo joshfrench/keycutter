@@ -22,8 +22,9 @@ class Gem::ConfigFile
 
   def load_api_keys
     @api_keys = File.exists?(credentials_path) ? load_file(credentials_path) : @hash
-    if @api_keys.key?(:rubygems_api_key) and not @api_keys.key?(:rubygems) then
-      @api_keys[:rubygems] = @api_keys.delete(:rubygems_api_key)
+    if @api_keys.key?(:rubygems_api_key)
+      rubygems_api_key = @api_keys.delete(:rubygems_api_key)
+      @api_keys[:rubygems] = rubygems_api_key unless @api_keys.key?(:rubygems)
     end
     @api_keys
   end
