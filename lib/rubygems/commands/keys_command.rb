@@ -53,17 +53,17 @@ class Gem::Commands::KeysCommand < Gem::Command
       end
 
       with_response response do |resp|
-        accounts = Gem.configuration.rubygems_accounts.merge(options[:add] => resp.body)
-        Gem.configuration.rubygems_accounts = accounts
+        accounts = Gem.configuration.api_keys.merge(options[:add] => resp.body)
+        Gem.configuration.api_keys = accounts
         say "Added #{options[:add]} rubygems API key"
       end
     end
 
     if options[:remove] then
-      accounts = Gem.configuration.rubygems_accounts
+      accounts = Gem.configuration.api_keys
       if accounts.has_key? options[:remove]
         accounts.delete(options[:remove])
-        Gem.configuration.rubygems_accounts = accounts
+        Gem.configuration.api_keys = accounts
         say "Removed #{options[:remove]} rubygems API key"
       else
         say "No such rubygems API key"
@@ -72,8 +72,8 @@ class Gem::Commands::KeysCommand < Gem::Command
     end
 
     if options[:use] then
-      if Gem.configuration.rubygems_accounts.has_key? options[:use]
-        Gem.configuration.rubygems_api_key = Gem.configuration.rubygems_accounts[options[:use]]
+      if Gem.configuration.api_keys.has_key? options[:use]
+        Gem.configuration.rubygems_api_key = Gem.configuration.api_keys[options[:use]]
         say "Now using #{options[:use]} rubygems API key"
       else
         say "No such rubygems API key. You can add it with: gem keys -a #{options[:use]}"
@@ -84,7 +84,7 @@ class Gem::Commands::KeysCommand < Gem::Command
     if options[:list] then
       say "*** CURRENT KEYS ***"
       say
-      accounts = Gem.configuration.rubygems_accounts.sort
+      accounts = Gem.configuration.api_keys.sort
       accounts.each do |account|
         name, key = account
         say "%2s %s" % [Gem.configuration.rubygems_api_key[key] && '*', name]

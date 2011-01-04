@@ -1,12 +1,12 @@
 require 'rubygems/config_file'
 
 class Gem::ConfigFile
-  def rubygems_accounts
-    @rubygems_accounts || load_rubygems_accounts
+  def api_keys
+    @api_keys || load_api_keys
   end
 
-  def rubygems_accounts=(accounts)
-    config = load_file(credentials_path).merge(:rubygems_accounts => accounts)
+  def api_keys=(accounts)
+    config = load_file(credentials_path).merge(:api_keys => accounts)
 
     dirname = File.dirname(credentials_path)
     Dir.mkdir(dirname) unless File.exists?(dirname)
@@ -17,11 +17,11 @@ class Gem::ConfigFile
       f.write config.to_yaml
     end
 
-    @rubygems_accounts = accounts
+    @api_keys = accounts
   end
 
-  def load_rubygems_accounts
+  def load_api_keys
     credentials_hash = File.exists?(credentials_path) ? load_file(credentials_path) : @hash
-    @rubygems_accounts = credentials_hash[:rubygems_accounts] || {}
+    @api_keys = credentials_hash[:api_keys] || {}
   end
 end

@@ -7,21 +7,21 @@ describe Gem::ConfigFile do
     @config.stub(:credentials_path) { @credentials }
   end
 
-  describe "#rubygems_accounts" do
+  describe "#api_keys" do
     it "should load from credentials file" do
-      credentials = {:rubygems_accounts => {'personal' => '1'*32, 'work' => '2'*32}}
+      credentials = {:api_keys => {'personal' => '1'*32, 'work' => '2'*32}}
       File.open(@credentials, 'w') { |f| f.write credentials.to_yaml }
-      @config.rubygems_accounts.should == credentials[:rubygems_accounts] 
+      @config.api_keys.should == credentials[:api_keys] 
     end
   end
 
-  describe "#rubygems_accounts=" do
+  describe "#api_keys=" do
     it "should write to credentials file" do
       File.open(@credentials, 'w') { |f| f.write '' }
       accounts = {'personal' => '1'*32, 'work' => '2'*32}
-      @config.rubygems_accounts = accounts
+      @config.api_keys = accounts
 
-      File.read(@credentials).should == {:rubygems_accounts => accounts}.to_yaml
+      File.read(@credentials).should == {:api_keys => accounts}.to_yaml
     end
 
     it "should preserve existing credentials" do
@@ -29,7 +29,7 @@ describe Gem::ConfigFile do
       File.open(@credentials, 'w') { |f| f.write api_key.to_yaml }
 
       accounts = {'personal' => '1'*32, 'work' => '2'*32}
-      @config.rubygems_accounts = accounts
+      @config.api_keys = accounts
 
       credentials = YAML.load_file(@credentials)
       credentials[:rubygems_api_key].should == '0'*32

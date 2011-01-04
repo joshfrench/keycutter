@@ -4,7 +4,7 @@ Feature: Using gem keys
   In order to push all of my sweet gems
 
   Background:
-    Given I have the following rubygems keys:
+    Given I have the following api keys:
       |name    |key                             |
       |personal|11111111111111111111111111111111|
       |work    |22222222222222222222222222222222|

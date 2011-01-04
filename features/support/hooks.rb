@@ -5,12 +5,12 @@ end
 
 Before do
   @original_api_key  = Gem.configuration.rubygems_api_key
-  @original_accounts = Gem.configuration.rubygems_accounts
+  @original_accounts = Gem.configuration.api_keys
 end
 
 After do
   Gem.configuration.rubygems_api_key  = @original_api_key
-  Gem.configuration.rubygems_accounts = @original_accounts
+  Gem.configuration.api_keys = @original_accounts
 end
 
 at_exit do

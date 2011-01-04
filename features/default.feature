@@ -8,7 +8,7 @@ Feature: Default commands
     Then the output should contain "keycutter"
 
   Scenario: Calling the plugin with no options
-    Given I have the following rubygems keys:
+    Given I have the following api keys:
       |name    |key                             |
       |personal|11111111111111111111111111111111|
       |work    |22222222222222222222222222222222|
@@ -27,7 +27,7 @@ Feature: Default commands
     """
 
   Scenario Outline: Using the list option
-    Given I have the following rubygems keys:
+    Given I have the following api keys:
       |name    |key                             |
       |personal|11111111111111111111111111111111|
       |work    |22222222222222222222222222222222|

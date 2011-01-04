@@ -9,8 +9,8 @@ Feature: Adding keys
     And I type "josh@vitamin-j.com"
     And I type "12345"
     Then the output should contain "Added <key> rubygems API key"
-    And I should have a "<key>" rubygems key
-    And the "<key>" rubygems key should be the response body
+    And I should have a "<key>" api key
+    And the "<key>" api key should be the response body
 
     Examples:
       |command|key     |
@@ -23,4 +23,4 @@ Feature: Adding keys
     And I type "josh@vitamin-j.com"
     And I type "12345"
     Then the output should contain "Access denied"
-    And I should not have a "bogus" rubygems key
+    And I should not have a "bogus" api key
