@@ -25,6 +25,12 @@ class Gem::Commands::KeysCommand < Gem::Command
     add_option '-a', '--add KEYNAME', Symbol, 'Add an API key with the given name' do |value,options|
       options[:add] = value
     end
+
+    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.4.0')
+      add_option '--host HOST', 'Use another gemcutter-compatible host' do |value,options|
+        options[:host] = value
+      end
+    end
   end
 
   def arguments
@@ -45,14 +51,23 @@ class Gem::Commands::KeysCommand < Gem::Command
     options[:list] = !(options[:default] || options[:remove] || options[:add])
 
     if options[:add] then
-      say "Enter your RubyGems.org credentials."
+      if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.4.0')
+        gem_host = URI.parse(options[:host] || Gem.host).host
+      else
+        gem_host = 'Rubygems.org'
+      end
+
+      say "Enter your #{gem_host} credentials."
       say "Don't have an account yet? Create one at http://rubygems.org/sign_up"
 
       email    =              ask "   Email: "
       password = ask_for_password "Password: "
       say
 
-      response = rubygems_api_request :get, "api/v1/api_key" do |request|
+      args = [:get, 'api/v1/api_key']
+      args << options[:host] if options[:host]
+
+      response = rubygems_api_request(*args) do |request|
         request.basic_auth email, password
       end
 

@@ -22,6 +22,11 @@ Given /^an invalid gemcutter account$/ do
   set_env 'FAKEWEB_MESSAGE', 'Unauthorized'
 end
 
+Given /^a gemcutter host at "([^"]*)"$/ do |host|
+  set_env 'FAKEWEB_HOST', host
+end
+
+
 Then /^my current rubygems key should be "([^"]*)"$/ do |key|
   Gem.configuration.load_rubygems_api_key
   Gem.configuration.rubygems_api_key.should == Gem.configuration.api_keys[key.to_sym]

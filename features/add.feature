@@ -24,3 +24,13 @@ Feature: Adding keys
     And I type "12345"
     Then the output should contain "Access denied"
     And I should not have a "bogus" api key
+
+  @1.4
+  Scenario: Adding a key from a compatible host
+    Given a gemcutter host at "https://nubygems.org"
+    And a valid gemcutter account
+    When I run "gem keys --add personal --host https://nubygems.org" interactively
+    And I type "josh@vitamin-j.com"
+    And I type "12345"
+    Then the output should contain "Enter your nubygems.org credentials"
+    And the "personal" api key should be the response body
