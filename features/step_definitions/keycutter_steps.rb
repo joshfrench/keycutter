@@ -11,13 +11,15 @@ Given /^my current rubygems key is "([^"]*)"$/ do |key|
 end
 
 Given /^a valid gemcutter account$/ do
-  @response = {:body => '3'*32}
-  DRb.start_service "druby://localhost:3333", [:get, "https://rubygems.org/api/v1/api_key", @response]
+  set_env 'FAKEWEB_BODY', '3'*32
+  set_env 'FAKEWEB_STATUS', '200'
+  set_env 'FAKEWEB_MESSAGE', 'OK'
 end
 
 Given /^an invalid gemcutter account$/ do
-  @response = {:body => "HTTP Basic: Access denied", :status => ["401", "Not Authorized"]}
-  DRb.start_service "druby://localhost:3333", [:get, "https://rubygems.org/api/v1/api_key", @response]
+  set_env 'FAKEWEB_BODY', 'HTTP Basic: Access denied.'
+  set_env 'FAKEWEB_STATUS', '401'
+  set_env 'FAKEWEB_MESSAGE', 'Unauthorized'
 end
 
 Then /^my current rubygems key should be "([^"]*)"$/ do |key|
@@ -37,5 +39,5 @@ end
 
 Then /^the "([^"]*)" rubygems key should be the response body$/ do |key|
   Gem.configuration.load_rubygems_accounts
-  Gem.configuration.rubygems_accounts[key].should == @response[:body]
+  Gem.configuration.rubygems_accounts[key].should == ENV['FAKEWEB_BODY']
 end

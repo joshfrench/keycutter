@@ -1,5 +1,3 @@
-@fakeweb
-
 Feature: Adding keys
   As a developer
   I want to add an API key

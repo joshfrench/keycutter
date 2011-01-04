@@ -1,8 +1,7 @@
-require 'drb'
 require 'fakeweb'
 
-DRb.start_service
-remote = DRbObject.new(nil, "druby://localhost:3333")
-
 FakeWeb.allow_net_connect = false
-FakeWeb.register_uri *remote
+FakeWeb.register_uri :get, "https://rubygems.org/api/v1/api_key", {
+                        :body => ENV['FAKEWEB_BODY'],
+                        :status => [ENV['FAKEWEB_STATUS'], ENV['FAKEWEB_MESSAGE']]
+                     }
