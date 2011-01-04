@@ -71,7 +71,6 @@ class Gem::Commands::KeysCommand < Gem::Command
         say "Removed #{options[:remove]} API key"
       else
         say "No such API key"
-        terminate_interaction 1
       end
     end
 

@@ -22,4 +22,3 @@ Feature: Remove API keys
   Scenario: Removing a bogus key
     When I run "gem keys -r bogus"
     Then the output should contain "No such API key"
-    And the exit status should be 1
