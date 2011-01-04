@@ -6,7 +6,7 @@ class Gem::ConfigFile
   end
 
   def api_keys=(accounts)
-    config = load_file(credentials_path).merge(:api_keys => accounts)
+    config = load_file(credentials_path).merge(accounts)
 
     dirname = File.dirname(credentials_path)
     Dir.mkdir(dirname) unless File.exists?(dirname)
@@ -21,7 +21,7 @@ class Gem::ConfigFile
   end
 
   def load_api_keys
-    credentials_hash = File.exists?(credentials_path) ? load_file(credentials_path) : @hash
-    @api_keys = credentials_hash[:api_keys] || {}
+    credentials = File.exists?(credentials_path) ? load_file(credentials_path) : @hash
+    @api_keys = credentials || {}
   end
 end

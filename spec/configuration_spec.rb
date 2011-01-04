@@ -9,9 +9,9 @@ describe Gem::ConfigFile do
 
   describe "#api_keys" do
     it "should load from credentials file" do
-      credentials = {:api_keys => {'personal' => '1'*32, 'work' => '2'*32}}
+      credentials = {'personal' => '1'*32, 'work' => '2'*32}
       File.open(@credentials, 'w') { |f| f.write credentials.to_yaml }
-      @config.api_keys.should == credentials[:api_keys] 
+      @config.api_keys.should == credentials
     end
   end
 
@@ -21,7 +21,7 @@ describe Gem::ConfigFile do
       accounts = {'personal' => '1'*32, 'work' => '2'*32}
       @config.api_keys = accounts
 
-      File.read(@credentials).should == {:api_keys => accounts}.to_yaml
+      File.read(@credentials).should == accounts.to_yaml
     end
 
     it "should preserve existing credentials" do
