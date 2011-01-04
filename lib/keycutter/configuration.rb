@@ -5,8 +5,8 @@ class Gem::ConfigFile
     @api_keys || load_api_keys
   end
 
-  def api_keys=(accounts)
-    config = load_file(credentials_path).merge(accounts)
+  def api_keys=(keys)
+    keys.merge!(:rubygems_api_key => @rubygems_api_key) if defined? @rubygems_api_key
 
     dirname = File.dirname(credentials_path)
     Dir.mkdir(dirname) unless File.exists?(dirname)
@@ -14,14 +14,17 @@ class Gem::ConfigFile
     require 'yaml'
 
     File.open(credentials_path, 'w') do |f|
-      f.write config.to_yaml
+      f.write keys.to_yaml
     end
 
-    @api_keys = accounts
+    @api_keys = keys
   end
 
   def load_api_keys
-    credentials = File.exists?(credentials_path) ? load_file(credentials_path) : @hash
-    @api_keys = credentials || {}
+    @api_keys = File.exists?(credentials_path) ? load_file(credentials_path) : @hash
+    if @api_keys.key?(:rubygems_api_key) and not @api_keys.key?(:rubygems) then
+      @api_keys[:rubygems] = @api_keys.delete(:rubygems_api_key)
+    end
+    @api_keys
   end
 end
