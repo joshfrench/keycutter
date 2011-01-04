@@ -13,40 +13,44 @@ Installation
 Usage
 -----
 
-Start by adding your current API key. You can name it whatever you want:
+Upon installation, you'll have your existing rubygems key.
 
-    $ gem keys --add personal
+    $ gem keys --list
+
+    *** CURRENT KEYS ***
+
+     * rubygems
+
+If you manage gems for your company or an open-source organization, you can add
+additional keys:
+
+    $ gem keys --add work
        Email:
     Password:
 
-You'll be prompted for your Rubygems.org email and password. If you manage gems
-for your company or an open-source organization, add those too:
-
-    $ gem keys --add company
-    $ gem keys --add project
+You'll be prompted for your Rubygems.org email and password.
 
 If you're using RubyGems 1.4.1 or higher, you can pass the `--host` option to
 use a gemcutter-compatible host when adding a key:
 
     $ gem keys --add internal --host http://gems.mycompany.com
 
-You can view your current keys:
+By default, your existing rubygems.org key is used whenever communicating with
+gemcutter. To switch the default key used to manage remote gems:
+
+    $ gem keys --default work
+
+Your default key is always marked with a *:
 
     $ gem keys --list
-    
+
     *** CURRENT KEYS ***
 
-       company
-     * personal
-       project
-
-Your default key is marked.
-
-To switch the default key used when managing remote gems:
-
-    $ gem keys --default company
-
-You can also remove a key:
+       internal
+       rubygems
+     * work
+     
+You can remove a key:
 
     $ gem keys --remove project
 
