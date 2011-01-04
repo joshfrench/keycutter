@@ -8,7 +8,7 @@ Feature: Adding keys
     When I run "gem keys <command> <key>" interactively
     And I type "josh@vitamin-j.com"
     And I type "12345"
-    Then the output should contain "Added <key> rubygems API key"
+    Then the output should contain "Added <key> API key"
     And I should have a "<key>" api key
     And the "<key>" api key should be the response body
 

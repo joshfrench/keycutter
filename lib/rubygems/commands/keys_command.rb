@@ -59,7 +59,7 @@ class Gem::Commands::KeysCommand < Gem::Command
       with_response response do |resp|
         accounts = Gem.configuration.api_keys.merge(options[:add] => resp.body)
         Gem.configuration.api_keys = accounts
-        say "Added #{options[:add]} rubygems API key"
+        say "Added #{options[:add]} API key"
       end
     end
 
@@ -68,9 +68,9 @@ class Gem::Commands::KeysCommand < Gem::Command
       if accounts.has_key? options[:remove]
         accounts.delete(options[:remove])
         Gem.configuration.api_keys = accounts
-        say "Removed #{options[:remove]} rubygems API key"
+        say "Removed #{options[:remove]} API key"
       else
-        say "No such rubygems API key"
+        say "No such API key"
         terminate_interaction 1
       end
     end
@@ -78,9 +78,9 @@ class Gem::Commands::KeysCommand < Gem::Command
     if options[:use] then
       if Gem.configuration.api_keys.has_key? options[:use]
         Gem.configuration.rubygems_api_key = Gem.configuration.api_keys[options[:use]]
-        say "Now using #{options[:use]} rubygems API key"
+        say "Now using #{options[:use]} API key"
       else
-        say "No such rubygems API key. You can add it with: gem keys -a #{options[:use]}"
+        say "No such API key. You can add it with: gem keys -a #{options[:use]}"
         terminate_interaction 1
       end
     end

@@ -11,7 +11,7 @@ Feature: Remove API keys
 
   Scenario Outline:
     When I run "gem keys <command> <key>"
-    Then the output should contain "Removed <key> rubygems API key"
+    Then the output should contain "Removed <key> API key"
     And I should not have a "<key>" api key
 
     Examples:
@@ -21,5 +21,5 @@ Feature: Remove API keys
 
   Scenario: Removing a bogus key
     When I run "gem keys -r bogus"
-    Then the output should contain "No such rubygems API key"
+    Then the output should contain "No such API key"
     And the exit status should be 1

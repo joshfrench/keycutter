@@ -12,7 +12,7 @@ Feature: Using gem keys
   Scenario Outline: Using a different key
     Given my current rubygems key is "work"
     When I run "gem keys <command> <key>"
-    Then the output should contain "Now using <key> rubygems API key"
+    Then the output should contain "Now using <key> API key"
     And my current rubygems key should be "<key>"
 
     Examples:
@@ -24,6 +24,6 @@ Feature: Using gem keys
   Scenario: Using a bogus key
     Given my current rubygems key is "personal"
     When I run "gem keys -u bogus"
-    Then the output should contain "No such rubygems API key. You can add it with: gem keys -a bogus"
+    Then the output should contain "No such API key. You can add it with: gem keys -a bogus"
     And the exit status should be 1
     And my current rubygems key should be "personal"
