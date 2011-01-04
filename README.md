@@ -13,7 +13,8 @@ Installation
 Usage
 -----
 
-Upon installation, you'll have your existing rubygems key.
+Use the `gem keys` command to manage multiple API keys. Upon installation,
+keycutter will only know about your existing rubygems key:
 
     $ gem keys --list
 
@@ -50,7 +51,7 @@ Your default key is always marked with a *:
        rubygems
      * work
      
-You can remove a key:
+You can also remove keys:
 
     $ gem keys --remove project
 
