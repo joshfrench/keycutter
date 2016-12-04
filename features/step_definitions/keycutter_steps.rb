@@ -29,20 +29,20 @@ end
 
 Then /^my current rubygems key should be "([^"]*)"$/ do |key|
   Gem.configuration.load_rubygems_api_key
-  Gem.configuration.rubygems_api_key.should == Gem.configuration.api_keys[key.to_sym]
+  expect(Gem.configuration.rubygems_api_key).to eq(Gem.configuration.api_keys[key.to_sym])
 end
 
 Then /^I should have a "([^"]*)" api key$/ do |key|
   Gem.configuration.load_api_keys
-  Gem.configuration.api_keys.should have_key(key.to_sym)
+  expect(Gem.configuration.api_keys).to have_key(key.to_sym)
 end
 
 Then /^I should not have a "([^"]*)" api key$/ do |key|
   Gem.configuration.load_api_keys
-  Gem.configuration.api_keys.should_not have_key(key.to_sym)
+  expect(Gem.configuration.api_keys).not_to have_key(key.to_sym)
 end
 
 Then /^the "([^"]*)" api key should be the response body$/ do |key|
   Gem.configuration.load_api_keys
-  Gem.configuration.api_keys[key.to_sym].should == ENV['FAKEWEB_BODY']
+  expect(Gem.configuration.api_keys[key.to_sym]).to eq(ENV['FAKEWEB_BODY'])
 end
