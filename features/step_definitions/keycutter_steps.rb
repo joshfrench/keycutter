@@ -26,9 +26,8 @@ Given /^a gemcutter host at "([^"]*)"$/ do |host|
   set_env 'FAKEWEB_HOST', host
 end
 
-
 Then /^my current rubygems key should be "([^"]*)"$/ do |key|
-  Gem.configuration.load_rubygems_api_key
+  Gem.configuration.load_api_keys
   expect(Gem.configuration.rubygems_api_key).to eq(Gem.configuration.api_keys[key.to_sym])
 end
 
