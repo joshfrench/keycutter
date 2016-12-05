@@ -6,6 +6,7 @@ Gem::Specification.new do |s|
   s.name        = "keycutter"
   s.version     = Keycutter::VERSION
   s.platform    = Gem::Platform::RUBY
+  s.licenses    = ['MIT']
   s.authors     = ["Josh French"]
   s.email       = ["josh@vitamin-j.com"]
   s.homepage    = "http://github.com/joshfrench/keycutter"
