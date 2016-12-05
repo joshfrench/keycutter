@@ -4,7 +4,7 @@ Feature: Default commands
   So I can put keycutter to best use
 
   Scenario: Installing the gem
-    When I run "gem q"
+    When I run `gem q`
     Then the output should contain "keycutter"
 
   Scenario: Calling the plugin with no options
@@ -15,7 +15,7 @@ Feature: Default commands
       |oss_1   |33333333333333333333333333333333|
       |oss_2   |44444444444444444444444444444444|
     And my current rubygems key is "rubygems"
-    When I run "gem keys"
+    When I run `gem keys`
     Then the output should contain:
     """
     *** CURRENT KEYS ***
@@ -32,7 +32,7 @@ Feature: Default commands
       |rubygems|11111111111111111111111111111111|
       |work    |22222222222222222222222222222222|
     And my current rubygems key is "work"
-    When I run "gem keys <option>"
+    When I run `gem keys <option>`
     Then the output should contain:
     """
     *** CURRENT KEYS ***

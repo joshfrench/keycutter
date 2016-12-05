@@ -10,7 +10,7 @@ Feature: Remove API keys
       |work    |22222222222222222222222222222222|
 
   Scenario Outline:
-    When I run "gem keys <command> <key>"
+    When I run `gem keys <command> <key>`
     Then the output should contain "Removed <key> API key"
     And I should not have a "<key>" api key
 
@@ -20,5 +20,5 @@ Feature: Remove API keys
       |--remove|work    |
 
   Scenario: Removing a bogus key
-    When I run "gem keys -r bogus"
+    When I run `gem keys -r bogus`
     Then the output should contain "No such API key"

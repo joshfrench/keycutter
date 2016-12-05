@@ -5,7 +5,7 @@ Feature: Adding keys
 
   Scenario Outline: Adding a new key
     Given a valid gemcutter account
-    When I run "gem keys <command> <key>" interactively
+    When I run `gem keys <command> <key>` interactively
     And I type "josh@vitamin-j.com"
     And I type "12345"
     Then the output should contain "Added <key> API key"
@@ -19,7 +19,7 @@ Feature: Adding keys
 
   Scenario: Adding a key with bad credentials
     Given an invalid gemcutter account
-    When I run "gem keys -a bogus" interactively
+    When I run `gem keys -a bogus` interactively
     And I type "josh@vitamin-j.com"
     And I type "12345"
     Then the output should contain "Access denied"
@@ -29,7 +29,7 @@ Feature: Adding keys
   Scenario: Adding a key from a compatible host
     Given a gemcutter host at "https://nubygems.org"
     And a valid gemcutter account
-    When I run "gem keys --add personal --host https://nubygems.org" interactively
+    When I run `gem keys --add personal --host https://nubygems.org` interactively
     And I type "josh@vitamin-j.com"
     And I type "12345"
     Then the output should contain "Enter your nubygems.org credentials"
