@@ -1,7 +1,0 @@
-== Changelog
-
-=== 0.1.1
-* Lazy load Keycutter after the command has been invoked
-
-=== 0.1.0
-* Initial release
