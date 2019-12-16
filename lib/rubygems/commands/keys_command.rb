@@ -26,7 +26,7 @@ class Gem::Commands::KeysCommand < Gem::Command
       options[:add] = value
     end
 
-    if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.4.0')
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.4.0')
       add_option '--host HOST', 'Use another gemcutter-compatible host' do |value,options|
         options[:host] = value
       end
@@ -51,7 +51,7 @@ class Gem::Commands::KeysCommand < Gem::Command
     options[:list] = !(options[:default] || options[:remove] || options[:add])
 
     if options[:add] then
-      if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.4.0')
+      if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.4.0')
         gem_host = URI.parse(options[:host] || Gem.host).host
       else
         gem_host = 'Rubygems.org'
