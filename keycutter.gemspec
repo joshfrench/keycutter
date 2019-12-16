@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.licenses    = ['MIT']
   s.authors     = ["Josh French"]
   s.email       = ["josh@vitamin-j.com"]
-  s.homepage    = "http://github.com/joshfrench/keycutter"
+  s.homepage    = "https://github.com/joshfrench/keycutter"
   s.summary     = %q{Gemcutter key management}
   s.description = %q{Multiple gemcutter accounts? Manage your keys with ease.}
 
