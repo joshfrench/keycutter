@@ -13,8 +13,6 @@ Gem::Specification.new do |s|
   s.summary     = %q{Gemcutter key management}
   s.description = %q{Multiple gemcutter accounts? Manage your keys with ease.}
 
-  s.rubyforge_project = "keycutter"
-
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {spec,features}/*`.split("\n")
   s.require_paths = ["lib"]
