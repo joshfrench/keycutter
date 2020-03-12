@@ -1,5 +1,11 @@
 ## Change Log
 
+### 1.0.2
+
+#### Changed
+
+Replaced references to gemcutter, almost 10 years after it became rubygems
+
 ### 1.0.1
 
 #### Fixed
