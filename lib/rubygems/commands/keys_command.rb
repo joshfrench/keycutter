@@ -8,7 +8,7 @@ class Gem::Commands::KeysCommand < Gem::Command
   end
 
   def initialize
-    super 'keys', "Adds management for multiple gemcutter accounts"
+    super 'keys', "Adds management for multiple rubygems accounts"
 
     add_option '-l', '--list', 'List keys' do |value,options|
       options[:list] = value
@@ -27,7 +27,7 @@ class Gem::Commands::KeysCommand < Gem::Command
     end
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.4.0')
-      add_option '--host HOST', 'Use another gemcutter-compatible host' do |value,options|
+      add_option '--host HOST', 'Use another rubygems-compatible host' do |value,options|
         options[:host] = value
       end
     end
