@@ -1,5 +1,11 @@
 ## Change Log
 
+### 1.0.1
+
+#### Fixed
+
+* removed deprecated Gem configurations
+
 ### 1.0.0
 
 #### Fixed
